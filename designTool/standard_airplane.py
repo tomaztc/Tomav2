@@ -258,7 +258,7 @@ def calcular_Lc_Lb(inputs):
         ym_h = b_h/6 * (1 + 2*inputs['taper_h']) / (1 + inputs['taper_h'])
         return ((inputs['L_f']-DISTANCIA_EH_TAIL) - xmqc_w - 3*cr_h/4 + ym_h*np.tan(inputs['sweep_h'])) / cm_w
 
-    Lc_h = float(fixed_point(Lc_h_iter, 4.07, xtol=1e-7))
+    Lc_h = float(fixed_point(Lc_h_iter, 4.07, xtol=1e-6))
 
     #   xr_v + cr_v = xmqc_w + L_v + 3*cr_v/4 - (zm_v-zr_v)*tan(sweep_v) = L_f
     #   => L_v = L_f - xmqc_w - 3*cr_v/4 + (zm_v-zr_v)*tan(sweep_v)
@@ -270,6 +270,6 @@ def calcular_Lc_Lb(inputs):
         zm_v_dz = b_v/3 * (1 + 2*inputs['taper_v']) / (1 + inputs['taper_v'])
         return ((inputs['L_f']-DISTANCIA_EV_TAIL) - xmqc_w - 3*cr_v/4 + zm_v_dz*np.tan(inputs['sweep_v'])) / b_w
 
-    Lb_v = float(fixed_point(Lb_v_iter, 0.39, xtol=1e-7))
+    Lb_v = float(fixed_point(Lb_v_iter, 0.39, xtol=1e-6))
 
     return Lc_h, Lb_v
