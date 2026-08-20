@@ -67,7 +67,7 @@ def standard_airplane(name, delta_xr_w=-5.1, x_tank_c_w=0.14):
             'x_tank_c_w': x_tank_c_w, # VARIÁVEL - Fraction of the wing chord where fuel tank starts
             'c_tank_c_w' : None, # CALCULADO - Fraction of the wing chord occupied by the fuel tank
             'b_tank_b_w_start': 0.0, # MÍNIMO POSSÍVEL - Fraction of the wing semi-span where fuel tank starts
-            'b_tank_b_w_end': 0.85, # MÁXIMO POSSÍVEL - Fraction of the wing semi-span where fuel tank ends
+            'b_tank_b_w_end': 0.95, # MÁXIMO POSSÍVEL - Fraction of the wing semi-span where fuel tank ends
             'clmax_w': 1.8, # MÁXIMO POSSÍVEL - Maximum lift coefficient of wing airfoil
             'k_korn': 0.95, # MÁXIMO POSSÍVEL - Airfoil technology factor for Korn equation (wave drag)
             'flap_type': 'double slotted',  # Flap type
