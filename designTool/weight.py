@@ -44,7 +44,7 @@ def weight(W0_guess, T0_guess, airplane):
 
     # Use the Secant method to rapidly find the root (the exact W0)
     # x0 is the initial guess, x1 is a slightly perturbed second guess to start it
-    sol = root_scalar(weight_residual, x0=W0_guess, x1=W0_guess*0.95, method='secant', xtol=1e-7)
+    sol = root_scalar(weight_residual, x0=W0_guess, x1=W0_guess*0.95, method='secant', xtol=1e-4)
     
     W0_final = sol.root
     

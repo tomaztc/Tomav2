@@ -5,7 +5,8 @@ from matplotlib.ticker import AutoMinorLocator
 
 #========================================
 
-def plot_geometry(airplane, figname='3dview.png', az1=45, az2=-135):
+def plot_geometry(airplane, figname='3dview.png', az1=45, az2=-135,
+                  color=None, ax=None):
     '''
     az1 and az2: degrees of azimuth and elevation for the 3d plot view
     '''
@@ -107,8 +108,14 @@ def plot_geometry(airplane, figname='3dview.png', az1=45, az2=-135):
     ### PLOT
 
     #fig = plt.figure(fignum,figsize=(20, 10))
-    fig = plt.figure(num=figname, constrained_layout=True)
-    ax = fig.add_subplot(projection='3d', proj_type='ortho')
+    if ax is None:
+        fig = plt.figure(num=figname, constrained_layout=True)
+        ax = fig.add_subplot(projection='3d', proj_type='ortho')
+    else:
+        fig = ax.figure
+
+    line_start = len(ax.lines)
+    patch_start = len(ax.patches)
     # ax.set_aspect('equal')
 
     ax.plot([xr_w, xt_w, xt_w+ct_w, xr_w+cr_w, xt_w+ct_w, xt_w, xr_w],
@@ -617,6 +624,15 @@ def plot_geometry(airplane, figname='3dview.png', az1=45, az2=-135):
                 [z_mlg, z_mlg],'k--')
 
 
+    if color is not None:
+        for line in ax.lines[line_start:]:
+            line.set_color(color)
+
+        for patch in ax.patches[patch_start:]:
+            patch.set_edgecolor(color)
+            if patch.get_facecolor()[3] != 0:
+                patch.set_facecolor(color)
+
     # Equal aspect ratio: set all axes to the same range centered on the data
     X = np.array([0, xr_w, xt_h+ct_h, xt_v+ct_v, L_f, xr_h+b_v/np.tan(60*np.pi/180), xr_h+0.6*b_v/np.tan(30*np.pi/180)+cr_h])
     Y = np.array([-yt_w, yt_w])
@@ -639,6 +655,23 @@ def plot_geometry(airplane, figname='3dview.png', az1=45, az2=-135):
     ax.grid(False)
     fig.tight_layout()
     fig.subplots_adjust(left=-0.15, right=1.15, top=1.15, bottom=-0.15)
+
+
+def plot_airplanes(airplanes, colors, figname='3dview.png', az1=45, az2=-135):
+    '''Plot multiple airplanes on the same axes, using one color per airplane.'''
+
+    if len(airplanes) != len(colors):
+        raise ValueError('airplanes and colors must have the same length')
+    if not airplanes:
+        raise ValueError('at least one airplane is required')
+
+    fig = plt.figure(num=figname, constrained_layout=True)
+    ax = fig.add_subplot(projection='3d', proj_type='ortho')
+
+    for airplane, color in zip(airplanes, colors):
+        plot_geometry(airplane, figname, az1, az2, color=color, ax=ax)
+
+    return fig, ax
     
    
 #----------------------------------------
