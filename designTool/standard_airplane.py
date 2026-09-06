@@ -17,7 +17,7 @@ ALTURA_RODAS = 2.65 # MÁXIMO POSSÍVEL
 DISTANCIA_EH_TAIL = 3 # MÍNIMO POSSÍVEL
 DISTANCIA_EV_TAIL = 3.5 # MÍNIMO POSSÍVEL
 
-def standard_airplane(name, delta_xr_w=-5.1, x_tank_c_w=0.14):
+def standard_airplane(name, delta_xr_w=-5.1, x_tank_c_w=0.14, **kwargs):
     if name == "Tomav":
         inputs = {
             'delta_xr_w': delta_xr_w, # VARIÁVEL - Longitudinal shift of the wing with respect to the standard configuration [m]
@@ -67,7 +67,7 @@ def standard_airplane(name, delta_xr_w=-5.1, x_tank_c_w=0.14):
             'x_tank_c_w': x_tank_c_w, # VARIÁVEL - Fraction of the wing chord where fuel tank starts
             'c_tank_c_w' : None, # CALCULADO - Fraction of the wing chord occupied by the fuel tank
             'b_tank_b_w_start': 0.0, # MÍNIMO POSSÍVEL - Fraction of the wing semi-span where fuel tank starts
-            'b_tank_b_w_end': 0.95, # MÁXIMO POSSÍVEL - Fraction of the wing semi-span where fuel tank ends
+            'b_tank_b_w_end': 0.85, # MÁXIMO POSSÍVEL - Fraction of the wing semi-span where fuel tank ends
             'clmax_w': 1.8, # MÁXIMO POSSÍVEL - Maximum lift coefficient of wing airfoil
             'k_korn': 0.95, # MÁXIMO POSSÍVEL - Airfoil technology factor for Korn equation (wave drag)
             'flap_type': 'double slotted',  # Flap type
@@ -118,6 +118,11 @@ def standard_airplane(name, delta_xr_w=-5.1, x_tank_c_w=0.14):
                 'Tmax': 374500 # N
             }
         }
+        for parametro, valor in kwargs.items():
+            if parametro not in inputs or parametro in ["delta_xr_w", "x_tank_c_w"]:
+                raise ValueError
+            inputs[parametro] = valor
+            
         inputs["altitude_altcruise"] = inputs["altitude_cruise"]
         inputs["c_tank_c_w"] = 1 - inputs["c_flap_c_wing"] - DX_TANK_FLAP - x_tank_c_w
         inputs["x_mlg"] = calcular_x_mlg(inputs)
