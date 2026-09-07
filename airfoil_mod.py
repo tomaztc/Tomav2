@@ -11,6 +11,7 @@ Sept 2022
 
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 #=======================================
 
@@ -615,7 +616,7 @@ def fit_stre(xu,yu,xl,yl,opt_options=None,
 
 #=======================================
 
-def export_airfoil(airfoil, title='AIRFOIL', filename='airfoil.dat', reverse=False, close_te=True):
+def export_airfoil(airfoil, title='AIRFOIL', filename='airfoil.dat', reverse=False, close_te=False):
     '''
     This function generates a text file with airfoil coordinates
     according to the Xfoil input format (starts at trailing edge and loops around
@@ -692,12 +693,13 @@ def plot_airfoil(airfoil):
     xf = airfoil['x_coord']
     yf = airfoil['y_coord']
 
-    fig = plt.figure()
-    plt.plot(xf,yf,'-')
-    plt.xlabel('x')
-    plt.ylabel('y')
-    plt.axis('equal')
-    plt.show()
+    #fig = plt.figure()
+    #plt.plot(xf,yf,'-')
+    sns.lineplot(x=xf, y=yf)
+    # plt.xlabel('x')
+    # plt.ylabel('y')
+    # plt.axis('equal')
+    #plt.show()
 
 #=======================================
 
