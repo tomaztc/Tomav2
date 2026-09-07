@@ -65,7 +65,12 @@ def run_case(X, Y, alpha, mach, bcs, xref=0.25, yref=0.0, cref=1.0,
                        iter, dt, CFL, use_local_dt, res_NK, res_tol, bcs, reinitialize, adj_funcs)
 
         # Call the Fortran code
-        subprocess.run(os.path.join(os.path.dirname(os.path.realpath(__file__)),'eulerblock.exe'))
+        result = subprocess.run(
+            ["wine", os.path.join(os.path.dirname(os.path.realpath(__file__)),'eulerblock.exe')],
+            capture_output=True,
+            text=True,
+        )
+        print("Exit code:", result.returncode)
 
         # Post-processing
         wallData = read_walls()
