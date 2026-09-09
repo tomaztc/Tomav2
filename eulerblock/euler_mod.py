@@ -64,33 +64,9 @@ def run_case(X, Y, alpha, mach, bcs, xref=0.25, yref=0.0, cref=1.0,
         write_settings(alpha, mach, xref, yref, cref, gamma, order,
                        iter, dt, CFL, use_local_dt, res_NK, res_tol, bcs, reinitialize, adj_funcs)
 
-        env = os.environ.copy()
-        env["GFORTRAN_UNBUFFERED_ALL"] = "y"
-        env["WINEDEBUG"] = "-all"
-        residual = None
-        with subprocess.Popen(
-            ["wine", os.path.join(os.path.dirname(os.path.realpath(__file__)),'eulerblock.exe')],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            bufsize=1,
-            env=env,
-        ) as process:
-            for linha in process.stdout:
-                print(linha, end="", flush=True)
-                if "final iteration:" in linha.lower():
-                    residual = float(linha.split()[-1])
-            returncode = process.wait()
+        # Call the Fortran code
+        subprocess.run(os.path.join(os.path.dirname(os.path.realpath(__file__)),'eulerblock.exe'))
 
-        print("Exit code:", returncode)
-        # if returncode != 0:
-        #     raise Exception(f"eulerblock.exe exit code: {returncode}")
-        # if residual is None:
-        #     raise Exception("Final Iteration not found")
-        # if not np.isfinite(residual):
-        #     raise Exception(f"Final Iteration Residual = {residual} is not finite")
-        # if residual > res_tol:
-        #     raise Exception(f"Final Iteration Residual = {residual} > {res_tol}")
         # Post-processing
         wallData = read_walls()
 
