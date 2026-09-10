@@ -64,7 +64,7 @@ SetActiveView(lineChartView1)
 # create a new 'Legacy VTK Reader'
 import os
 dirname = os.path.dirname(__file__)
-solutionvtk = LegacyVTKReader(registrationName='solution.vtk', FileNames=["Lab3/airfoil_A/solution.vtk"])
+solutionvtk = LegacyVTKReader(registrationName='solution.vtk', FileNames=[os.path.join(dirname,'Lab3\\airfoil_A\\solution.vtk')])
 
 # create a new 'Cell Data to Point Data'
 cellDatatoPointData1 = CellDatatoPointData(registrationName='CellDatatoPointData1', Input=solutionvtk)
