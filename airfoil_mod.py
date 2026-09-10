@@ -223,7 +223,7 @@ def cstfoil(Au, Al, x, N1=0.5, N2=1.0, tte=0.0, plot=False):
     # Use KS function for maximum thickness.
     # We use this instead of the max function so that it has
     # a continuous variation for gradient-based optimization.
-    rhoKS = 500
+    rhoKS = 2000
     maxt = maxt + 1/rhoKS*np.log(np.sum(np.exp(rhoKS*(tt-maxt))))
     mint = mint - 1/rhoKS*np.log(np.sum(np.exp(rhoKS*(mint-tt))))
 
