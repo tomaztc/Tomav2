@@ -85,7 +85,7 @@ plotData1 = PlotData(registrationName='PlotData1', Input=extractSubset1)
 plotData1Display = Show(plotData1, lineChartView1, 'XYChartRepresentation')
 
 # trace defaults for the display properties.
-plotData1Display.CompositeDataSetIndex = [0]
+plotData1Display.BlockSelectors = ['/']
 plotData1Display.UseIndexForXAxis = 0
 plotData1Display.XArrayName = 'Points_X'
 plotData1Display.SeriesVisibility = ['Mach', 'p', 'pressure']
