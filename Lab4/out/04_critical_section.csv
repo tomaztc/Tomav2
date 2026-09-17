@@ -1,0 +1,5 @@
+caso,it_deg,alpha_max_deg,CLmax,delta_e_deg,eta_estol
+CG dianteiro sem trimagem,-3.411,12.9077,1.25128,0,0.841027
+CG dianteiro com trimagem,-3.411,12.9422,1.18425,-9.67051,0.841027
+CG traseiro sem trimagem,-2.1312,12.8986,1.26735,0,0.841027
+CG traseiro com trimagem,-2.1312,12.9163,1.23358,-4.89405,0.841027
