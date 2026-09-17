@@ -36,7 +36,7 @@ SCALE
 1.0   1.0   1.0
 
 TRANSLATE
-0.0  0.0  -1.0950
+0.0  0.0  -0.6711
 
 # eta = 0.000
 SECTION
@@ -135,7 +135,7 @@ SCALE
 1.0  1.0  1.0
 
 TRANSLATE
-0.0  0.0  1.0100
+0.0  0.0  1.7516
 
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
@@ -166,7 +166,7 @@ SCALE
 1.0   1.0  1.0
 
 TRANSLATE
-0.0  0.0  0.0100
+0.0  0.0  0.7516
 
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
@@ -210,7 +210,7 @@ SCALE
 5.8000   1.7500  1.7500
 
 TRANSLATE
-19.2000  10.5000  -3.9395
+19.2000  10.5000  -3.6056
 
 SECTION
 #Xle   Yle    Zle      Chord   Ainc  Nspanwise  Sspace

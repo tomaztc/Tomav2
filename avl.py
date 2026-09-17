@@ -3,6 +3,7 @@ import json
 import shutil
 
 import numpy as np
+from scipy.interpolate import CubicSpline
 
 from designTool.aerodynamics import aerodynamics
 from designTool.auxiliary import atmosphere
@@ -26,7 +27,7 @@ shutil.copy(AIRFOIL_FILE, os.path.join(AVL_DIR, AIRFOIL_FILE))
 XHINGE_ELEV = 0.60 # Posição da charneira do profundor (x/c)
 XHINGE_RUDDER = 0.70 # Posição da charneira do leme (x/c)
 AIL_TIP_MARGIN = 0.02 # Margem entre aileron e ponta da asa em fração de b_w/2 (mesma de plots.py)
-Z_GAP = 0.01 # Folga vertical mínima [m] entre superfícies e fuselagem/naceles (evita erros no AVL)
+Z_GAP = 0.1 # Folga vertical mínima [m] entre superfícies e fuselagem/naceles (evita erros no AVL)
 
 #========================================
 # DADOS DO AVIÃO
@@ -62,11 +63,31 @@ CDp = dragDict['CD0'] + dragDict['CDwave']
 #========================================
 # DESLOCAMENTOS VERTICAIS (evitam intersecções no AVL)
 
+# Contorno da fuselagem (BFILE adimensional: x/L_f, z/D_f; superior do nariz até x=0, depois inferior)
+# O AVL interpola o contorno com spline cúbica na coordenada de arco, que ultrapassa os
+# pontos do arquivo perto dos cantos; os limites são calculados sobre essa spline
+BODY_FILE = "fuseB737_nondim.dat"
+body = np.loadtxt(os.path.join(AVL_DIR, BODY_FILE), skiprows=1)
+s_body = np.concatenate(([0.0], np.cumsum(np.hypot(*np.diff(body, axis=0).T))))
+s_fine = np.linspace(0.0, s_body[-1], 20001)
+x_body = CubicSpline(s_body, body[:, 0])(s_fine)*inputs['L_f']
+z_body = CubicSpline(s_body, body[:, 1])(s_fine)*inputs['D_f']
+upper_body = s_fine <= s_body[np.argmin(body[:, 0])]
+
+def body_z(x_start, x_end, surface):
+    '''
+    Retorna o z extremo [m] da fuselagem entre x_start e x_end:
+    máximo do contorno superior ou mínimo do inferior.
+    '''
+    in_range = (x_body >= x_start) & (x_body <= x_end)
+    if surface == 'upper':
+        return z_body[in_range & upper_body].max()
+    return z_body[in_range & ~upper_body].min()
+
 # Asa desce até logo abaixo da fuselagem; empenagens sobem até logo acima dela
-R_f = inputs['D_f']/2
-dz_w = min(0.0, -R_f - Z_GAP - inputs['zr_w'])
-dz_h = max(0.0, R_f + Z_GAP - inputs['zr_h'])
-dz_v = max(0.0, R_f + Z_GAP - inputs['zr_v'])
+dz_w = min(0.0, body_z(inputs['xr_w'], inputs['xr_w'] + geo['cr_w'], 'lower') - Z_GAP - inputs['zr_w'])
+dz_h = max(0.0, body_z(geo['xr_h'], geo['xr_h'] + geo['cr_h'], 'upper') + Z_GAP - inputs['zr_h'])
+dz_v = max(0.0, body_z(geo['xr_v'], geo['xr_v'] + geo['cr_v'], 'upper') + Z_GAP - inputs['zr_v'])
 
 # Naceles descem até logo abaixo da asa (menor z da asa na faixa de envergadura da nacele)
 R_n = inputs['D_n']/2
@@ -245,7 +266,7 @@ SCALE
 {inputs['L_f']:.4f} {inputs['D_f']:.4f} {inputs['D_f']:.4f}
 
 BFILE
-fuseB737_nondim.dat
+{BODY_FILE}
 
 #--------------------------------------------------
 SURFACE
