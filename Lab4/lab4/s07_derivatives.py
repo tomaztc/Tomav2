@@ -87,9 +87,22 @@ def run():
     t9['Izz'] = moi['Izz']
     t9['Ixz'] = moi['Ixz']
     t9['ip'] = config.IP_DEG
-    # posicao do motor em relacao ao CG; z_p com sinal invertido (MVO: z p/ baixo)
-    t9['xp'] = ig['x_n'] + ig['L_n'] / 2 - xcg
+    # Posicao do motor. Referencia adotada: meio da nacelle, MEDIDA A PARTIR DO
+    # CG. O enunciado manda inverter o sinal de z_p (em MVO z aponta para
+    # baixo) e pedir ao professor de MVO a origem/orientacao de x. Aqui:
+    #   xp  -> x positivo para TRAS (convencao do designTool): motor a frente
+    #          do CG fica negativo
+    #   xp_fwd -> x positivo para FRENTE: motor a frente do CG fica positivo
+    #   zp  -> z positivo para BAIXO (sinal ja invertido): motor abaixo do CG
+    #          fica positivo
+    x_eng = ig['x_n'] + ig['L_n'] / 2
+    t9['xp'] = x_eng - xcg
     t9['zp'] = -(ig['z_n'] - dp['zcg'])
+    extras_pos = {'x_engine_abs': x_eng, 'xcg_aft': xcg,
+                  'xp_x_positivo_para_tras': x_eng - xcg,
+                  'xp_x_positivo_para_frente': xcg - x_eng,
+                  'z_engine_abs_designtool': ig['z_n'],
+                  'zp_z_positivo_para_baixo': -(ig['z_n'] - dp['zcg'])}
     t9['Tmax'] = dp['Tmax']
     t9['V'] = t1['V']
     t9['h'] = t1['h']
@@ -132,6 +145,7 @@ def run():
 
     tab9 = {'_comment': 'Tabela 9 ja com as conversoes de sinal e de unidade '
                         'pedidas no enunciado.',
+            'posicao_do_motor': extras_pos,
             'condicao': {'cg': 'traseiro', 'xcg': xcg, 'Mach': mach,
                          'CL': CL_dp, 'alpha_deg': alpha_dp, 'it_deg': it_aft,
                          'delta_e_deg': 0.0, 'trimagem': False},

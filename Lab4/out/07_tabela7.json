@@ -1,0 +1,7 @@
+{
+  "_comment": "CD = CD0 + CDa*alpha + CDa2*alpha^2 (alpha em rad), ajuste da questao 5.b (CG traseiro, sem deflexoes).",
+  "CD0": 0.016817363585412085,
+  "CDa": -0.06082534735622817,
+  "CDa2": 2.1931754707719846,
+  "rms": 3.1777027367254775e-05
+}
