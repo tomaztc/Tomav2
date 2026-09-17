@@ -1,0 +1,62 @@
+{
+  "_comment": "Efeito do BODY e das nacelles no modelo AVL.",
+  "configuracao_atual": {
+    "INCLUDE_BODY": true,
+    "INCLUDE_NACELLES": true
+  },
+  "referencia_designTool": {
+    "xnp": 28.637891155659773,
+    "xnp_pct_mac": 47.29912560913223,
+    "SM_aft": 0.1980580751653837
+  },
+  "casos": [
+    {
+      "body": true,
+      "nacelle": true,
+      "CLa": 7.821068,
+      "Cma": -1.048514,
+      "CYb": -0.695771,
+      "Clb": -0.175192,
+      "Cnb": -0.097002,
+      "xnp": 28.218942,
+      "xnp_pct_mac": 40.89958166256044,
+      "SM_aft": 0.1340626356996658
+    },
+    {
+      "body": true,
+      "nacelle": false,
+      "CLa": 7.620693,
+      "Cma": -1.421377,
+      "CYb": -0.483678,
+      "Clb": -0.178911,
+      "Cnb": -0.068857,
+      "xnp": 28.562323,
+      "xnp_pct_mac": 46.14480478863909,
+      "SM_aft": 0.1865148669604523
+    },
+    {
+      "body": false,
+      "nacelle": true,
+      "CLa": 6.807708,
+      "Cma": -3.075063,
+      "CYb": -0.640415,
+      "Clb": -0.185354,
+      "Cnb": 0.128454,
+      "xnp": 30.298374,
+      "xnp_pct_mac": 72.66337993767745,
+      "SM_aft": 0.4517006184508359
+    },
+    {
+      "body": false,
+      "nacelle": false,
+      "CLa": 6.629182,
+      "Cma": -3.415368,
+      "CYb": -0.42142,
+      "Clb": -0.188158,
+      "Cnb": 0.157627,
+      "xnp": 30.71407,
+      "xnp_pct_mac": 79.01323118925627,
+      "SM_aft": 0.5151991309666242
+    }
+  ]
+}

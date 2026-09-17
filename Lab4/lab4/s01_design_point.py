@@ -90,6 +90,7 @@ def run():
         },
 
         # ---- condicao / pesos ---------------------------------------------
+        'gravity': gravity,
         'fuel_frac': config.FUEL_FRAC,
         'payload_frac': config.PAYLOAD_FRAC,
         'W_empty': tm['W_empty'],
