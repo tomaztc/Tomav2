@@ -82,6 +82,10 @@ ALPHA_SWEEP_LOWSPEED = (0.0, 26.0, 0.25)   # inicio, fim, passo [graus]
 # ----------------------------------------------------------------------------
 CL_MIN_PLOT = -0.5
 N_POLAR_POINTS = 25
+# Arrasto induzido: True usa o plano de Trefftz (CDff, campo distante) e
+# False usa a integracao de campo proximo (CDind) do AVL. O campo proximo
+# do AVL chega a dar CDind < 0 em CL baixo, entao Trefftz e o padrao.
+USE_TREFFTZ_DRAG = True
 
 # ----------------------------------------------------------------------------
 # Trimagem da empenagem (questao 3)
