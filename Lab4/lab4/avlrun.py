@@ -53,6 +53,7 @@ def _avl(commands, cwd):
 def run_case(cg, mach, alpha=None, CL=None, it=0.0,
              elevator=0.0, trim_elevator=False,
              aileron=0.0, rudder=0.0,
+             beta=None, pitch_rate=None, roll_rate=None, yaw_rate=None,
              want=('ft',), tag=None):
     """
     Executa um ponto de operacao do AVL.
@@ -63,6 +64,10 @@ def run_case(cg, mach, alpha=None, CL=None, it=0.0,
     it              : incidencia da EH [graus] (variavel de projeto)
     elevator        : deflexao de profundor imposta [graus]
     trim_elevator   : se True, o profundor e trimado para Cm = 0
+    beta            : angulo de derrapagem [graus]
+    pitch_rate      : qc/2V   (usado nas diferencas finitas de CDq)
+    roll_rate       : pb/2V
+    yaw_rate        : rb/2V
     want            : subconjunto de ('ft', 'st', 'sb', 'fs')
 
     Retorna dict com as chaves pedidas ja parseadas + 'log' (stdout bruto).
@@ -95,6 +100,14 @@ def run_case(cg, mach, alpha=None, CL=None, it=0.0,
     else:
         cmd.append('d2 d2 %.6f' % elevator)
     cmd.append('d3 d3 %.6f' % rudder)
+    if beta is not None:
+        cmd.append('b b %.6f' % beta)
+    if roll_rate is not None:
+        cmd.append('r r %.6f' % roll_rate)
+    if pitch_rate is not None:
+        cmd.append('p p %.6f' % pitch_rate)
+    if yaw_rate is not None:
+        cmd.append('y y %.6f' % yaw_rate)
     cmd.append('de')
     cmd.append('1 %.6f' % it)
     cmd.append('')
