@@ -16,13 +16,13 @@ moment_of_inertia(airplane, fuel_frac=0.5, payload_frac=1.0)
 
 json.dump(airplane, open("tomav.json", "w"), indent=4)
 
-# Pasta de saída (mesma do executável do AVL, onde estão a1.dat e fuseB737_nondim.dat)
-AVL_DIR = "AVL_package"
+AVL_DIR = ""
 
 # Superfícies de controle da empenagem não definidas no designTool (valores do b737simple.avl)
 XHINGE_ELEV = 0.60 # Posição da charneira do profundor (x/c)
 XHINGE_RUDDER = 0.70 # Posição da charneira do leme (x/c)
 AIL_TIP_MARGIN = 0.02 # Margem entre aileron e ponta da asa em fração de b_w/2 (mesma de plots.py)
+Z_FUS_MARGIN = 0.05 # Folga vertical entre superfícies e fuselagem em fração de D_f
 
 #========================================
 # DADOS DO AVIÃO
@@ -54,6 +54,12 @@ _, _, dragDict = aerodynamics(airplane, Mach=Mach_cruise, altitude=altitude_crui
 
 # Arrasto não-induzido (o AVL calcula o induzido)
 CDp = dragDict['CD0'] + dragDict['CDwave']
+
+# Deslocamentos verticais para que asa e HT não intersectem a fuselagem (erros no AVL)
+# Asa desce até abaixo da fuselagem; HT sobe até acima dela
+z_clear = inputs['D_f']/2*(1 + 2*Z_FUS_MARGIN)
+dz_w = min(0.0, -z_clear - inputs['zr_w'])
+dz_h = max(0.0, z_clear - inputs['zr_h'])
 
 #========================================
 # SEÇÕES DA ASA
@@ -152,7 +158,7 @@ SCALE
 1.0   1.0   1.0
 
 TRANSLATE
-0.0  0.0  0.0
+0.0  0.0  {dz_w:.4f}
 {wing_sections()}
 #--------------------------------------------------
 SURFACE
@@ -170,7 +176,7 @@ SCALE
 1.0  1.0  1.0
 
 TRANSLATE
-0.0  0.0  0.0
+0.0  0.0  {dz_h:.4f}
 
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
@@ -306,4 +312,5 @@ for label in ['aft', 'fwd']:
         f.write(avl_file(xcg, label))
 
 print(f"W_cruise [N]: {W_cruise:.1f} | CL: {CL_cruise:.4f} | CDp: {CDp:.5f}")
+print(f"dz_w [m]: {dz_w:.4f} | dz_h [m]: {dz_h:.4f}")
 print(f"xcg_aft [m]: {airplane['balance']['xcg_aft']:.4f} | xcg_fwd [m]: {airplane['balance']['xcg_fwd']:.4f}")
