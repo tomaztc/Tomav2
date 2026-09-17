@@ -1,0 +1,31 @@
+{
+  "_comment": "Resumo do modelo AVL escrito no estagio 02.",
+  "controls": {
+    "aileron": 1,
+    "elevator": 2,
+    "rudder": 3
+  },
+  "design_vars": {
+    "it": 1
+  },
+  "S_ref": 330,
+  "c_ref": 6.546547053313134,
+  "b_ref": 58.86425061104575,
+  "CDp": 0.014165888041597637,
+  "xref_fwd": 26.17932678409365,
+  "xref_aft": 27.34129464730096,
+  "wing_twist_tip_deg": -3.0,
+  "wing_root_incidence_deg": 0.0,
+  "aileron_span_frac": [
+    0.6499999999999999,
+    0.97
+  ],
+  "c_elev_c_h": 0.3,
+  "c_rud_c_v": 0.35,
+  "include_body": true,
+  "include_nacelles": true,
+  "files": {
+    "fwd": "avl/fwd.avl",
+    "aft": "avl/aft.avl"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "_comment": "i_t que anula delta_e no ponto de projeto. Edite \"it\" para impor outro valor.",
+  "CL_design": 0.45506096854859746,
+  "Mach": 0.85,
+  "fwd": {
+    "it": -3.410996892182644,
+    "delta_e_residual": -0.00283,
+    "alpha": 3.80723,
+    "CLtot": 0.45506,
+    "CDtot": 0.01632,
+    "CDff": 0.0082487,
+    "CDvis": 0.01417,
+    "Cmtot": -0.0,
+    "e": 0.7384,
+    "iteracoes": [
+      {
+        "it": 0.0,
+        "delta_e": -5.70728
+      },
+      {
+        "it": -2.0,
+        "delta_e": -2.36088
+      },
+      {
+        "it": -3.410996892182644,
+        "delta_e": -0.00283
+      }
+    ]
+  },
+  "aft": {
+    "it": -2.1312007750408153,
+    "delta_e_residual": -0.00017,
+    "alpha": 3.6517,
+    "CLtot": 0.45506,
+    "CDtot": 0.01664,
+    "CDff": 0.0076766,
+    "CDvis": 0.01417,
+    "Cmtot": -0.0,
+    "e": 0.7921,
+    "iteracoes": [
+      {
+        "it": 0.0,
+        "delta_e": -3.56373
+      },
+      {
+        "it": -2.0,
+        "delta_e": -0.21939
+      },
+      {
+        "it": -2.1312007750408153,
+        "delta_e": -0.00017
+      }
+    ]
+  }
+}
