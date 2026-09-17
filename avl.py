@@ -1,5 +1,6 @@
 import os
 import json
+import shutil
 
 import numpy as np
 
@@ -16,13 +17,16 @@ moment_of_inertia(airplane, fuel_frac=0.5, payload_frac=1.0)
 
 json.dump(airplane, open("tomav.json", "w"), indent=4)
 
-AVL_DIR = ""
+# Pasta de saída (mesma do executável do AVL, onde está fuseB737_nondim.dat)
+AVL_DIR = "AVL_package"
+AIRFOIL_FILE = "airfoil.dat"
+shutil.copy(AIRFOIL_FILE, os.path.join(AVL_DIR, AIRFOIL_FILE))
 
 # Superfícies de controle da empenagem não definidas no designTool (valores do b737simple.avl)
 XHINGE_ELEV = 0.60 # Posição da charneira do profundor (x/c)
 XHINGE_RUDDER = 0.70 # Posição da charneira do leme (x/c)
 AIL_TIP_MARGIN = 0.02 # Margem entre aileron e ponta da asa em fração de b_w/2 (mesma de plots.py)
-Z_FUS_MARGIN = 0.05 # Folga vertical entre superfícies e fuselagem em fração de D_f
+Z_GAP = 0.01 # Folga vertical mínima [m] entre superfícies e fuselagem/naceles (evita erros no AVL)
 
 #========================================
 # DADOS DO AVIÃO
@@ -55,11 +59,20 @@ _, _, dragDict = aerodynamics(airplane, Mach=Mach_cruise, altitude=altitude_crui
 # Arrasto não-induzido (o AVL calcula o induzido)
 CDp = dragDict['CD0'] + dragDict['CDwave']
 
-# Deslocamentos verticais para que asa e HT não intersectem a fuselagem (erros no AVL)
-# Asa desce até abaixo da fuselagem; HT sobe até acima dela
-z_clear = inputs['D_f']/2*(1 + 2*Z_FUS_MARGIN)
-dz_w = min(0.0, -z_clear - inputs['zr_w'])
-dz_h = max(0.0, z_clear - inputs['zr_h'])
+#========================================
+# DESLOCAMENTOS VERTICAIS (evitam intersecções no AVL)
+
+# Asa desce até logo abaixo da fuselagem; empenagens sobem até logo acima dela
+R_f = inputs['D_f']/2
+dz_w = min(0.0, -R_f - Z_GAP - inputs['zr_w'])
+dz_h = max(0.0, R_f + Z_GAP - inputs['zr_h'])
+dz_v = max(0.0, R_f + Z_GAP - inputs['zr_v'])
+
+# Naceles descem até logo abaixo da asa (menor z da asa na faixa de envergadura da nacele)
+R_n = inputs['D_n']/2
+y_nac = np.array([inputs['y_n'] - R_n, inputs['y_n'] + R_n])
+z_wing_nac = inputs['zr_w'] + dz_w + y_nac/geo['yt_w']*(geo['zt_w'] - inputs['zr_w'])
+z_n = min(inputs['z_n'], z_wing_nac.min() - Z_GAP - R_n)
 
 #========================================
 # SEÇÕES DA ASA
@@ -108,7 +121,7 @@ SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
 {xle:.4f}  {yle:.4f}  {zle:.4f}  {chord:.4f}  0.0
 AFILE
-a1.dat
+{AIRFOIL_FILE}
 {control_lines}DESIGN
 iw 1.0
 """
@@ -207,7 +220,7 @@ SCALE
 1.0   1.0  1.0
 
 TRANSLATE
-0.0  0.0  0.0
+0.0  0.0  {dz_v:.4f}
 
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
@@ -251,7 +264,7 @@ SCALE
 {inputs['L_n']:.4f}   {inputs['D_n']/2:.4f}  {inputs['D_n']/2:.4f}
 
 TRANSLATE
-{inputs['x_n']:.4f}  {inputs['y_n']:.4f}  {inputs['z_n']:.4f}
+{inputs['x_n']:.4f}  {inputs['y_n']:.4f}  {z_n:.4f}
 
 SECTION
 #Xle   Yle    Zle      Chord   Ainc  Nspanwise  Sspace
@@ -312,5 +325,5 @@ for label in ['aft', 'fwd']:
         f.write(avl_file(xcg, label))
 
 print(f"W_cruise [N]: {W_cruise:.1f} | CL: {CL_cruise:.4f} | CDp: {CDp:.5f}")
-print(f"dz_w [m]: {dz_w:.4f} | dz_h [m]: {dz_h:.4f}")
+print(f"dz_w [m]: {dz_w:.4f} | dz_h [m]: {dz_h:.4f} | dz_v [m]: {dz_v:.4f} | z_n [m]: {z_n:.4f}")
 print(f"xcg_aft [m]: {airplane['balance']['xcg_aft']:.4f} | xcg_fwd [m]: {airplane['balance']['xcg_fwd']:.4f}")
