@@ -16,23 +16,20 @@ from designTool.moment_of_inertia import moment_of_inertia
 WING_ROOT_INCIDENCE_DEG = 0.0
 WING_TWIST_TIP_DEG = -3.0
 TAIL_INCIDENCE_DEG = 0.0
+# Superfícies de controle da empenagem não definidas no designTool
+XHINGE_ELEV = 0.60 # Posição da charneira do profundor (x/c)
+XHINGE_RUDDER = 0.70 # Posição da charneira do leme (x/c)
+AIL_TIP_MARGIN = 0.02 # Margem entre aileron e ponta da asa em fração de b_w/2 (mesma de plots.py)
+Z_GAP = 0.1 # Folga vertical mínima [m] entre superfícies e fuselagem/naceles (evita erros no AVL)
 
 airplane_name = "Tomav"
 airplane = standard_airplane(airplane_name)
-# Mesma aeronave usada no ponto de projeto de Lab3_cordamedia.ipynb.
-airplane['inputs']['tcr_w'] = 0.16
 analyze(airplane)
 
 # Pasta de saída (mesma do executável do AVL, onde está fuseB737_nondim.dat)
 AVL_DIR = "AVL_package"
 AIRFOIL_FILE = "airfoil.dat"
 shutil.copy(AIRFOIL_FILE, os.path.join(AVL_DIR, AIRFOIL_FILE))
-
-# Superfícies de controle da empenagem não definidas no designTool (valores do b737simple.avl)
-XHINGE_ELEV = 0.60 # Posição da charneira do profundor (x/c)
-XHINGE_RUDDER = 0.70 # Posição da charneira do leme (x/c)
-AIL_TIP_MARGIN = 0.02 # Margem entre aileron e ponta da asa em fração de b_w/2 (mesma de plots.py)
-Z_GAP = 0.1 # Folga vertical mínima [m] entre superfícies e fuselagem/naceles (evita erros no AVL)
 
 #========================================
 # DADOS DO AVIÃO

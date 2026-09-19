@@ -29,7 +29,7 @@ def standard_airplane(name, delta_xr_w=-5.1, x_tank_c_w=0.14, **kwargs):
             'dihedral_w': 5 * np.pi/180, # Wing dihedral [rad]
             'xr_w': 22 + delta_xr_w, # Longitudinal position of the wing (with respect to the fuselage nose) [m]
             'zr_w': -1.85, # Vertical position of the wing (with respect to the fuselage nose) [m]
-            'tcr_w': 0.175, # MÁXIMO POSSÍVEL - t/c of the root section of the wing
+            'tcr_w': 0.16, # MÁXIMO POSSÍVEL - t/c of the root section of the wing
             'tct_w': 0.08, # MÍNIMO POSSÍVEL - t/c of the tip section of the wing
             'Cht': 0.85, # MÍNIMO POSSÍVEL - Horizontal tail volume coefficient
             'Lc_h': None, # CALCULADO - Non-dimensional lever of the horizontal tail (lever/wing_mac)
