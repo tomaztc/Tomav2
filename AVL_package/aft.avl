@@ -1,5 +1,44 @@
-Tomav - CG aft (xcg = 27.3413 m), cruzeiro com 50% do combustivel
-# W = 2050761.9 N, CL = 0.4551
+Tomav - CG aft (xcg = 27.3457 m), meio do percurso de cruzeiro
+# PONTO DE PROJETO - Lab3_cordamedia.ipynb (calculado com o designTool atual)
+# Configuracao limpa; trem recolhido; todos os motores operantes; fora do efeito solo.
+# Mach = 0.8500; altitude = 9875.52 m (32400 ft)
+# rho = 0.41990606 kg/m3; a = 300.0446 m/s
+# V = 255.0379 m/s; q = 13656.2582 Pa; mu = 1.47391964e-05 Pa.s
+# W_inicio_cruzeiro = 2395830.2972 N; W_fim_cruzeiro = 1703386.7868 N
+# W_projeto = sqrt(W_inicio_cruzeiro * W_fim_cruzeiro) = 2020154.8633 N
+# Massa de projeto = 205928.1206 kg; g = 9.8100 m/s2
+# Combustivel restante = 389937.0368 N (44.4789% do combustivel da missao)
+# CL_projeto = 0.44826931; Re_Cref = 4.756587e+07
+# CD0 = 0.01410345; CDwave = 0.00010185; CDp = 0.01420529
+# CD_designTool = 0.02056052; CLmax_designTool = 1.32621493 (estimativas externas ao AVL)
+# Secao da MAC: y = 11.2362 m; c = 6.5465 m; t/c = 0.129459
+# cl_MAC_eliptico = 0.45174439 (hipotese do Lab3, nao resultado do AVL com washout)
+#
+# AVIAO - comprimentos em m, areas em m2, pesos em N, angulos em graus
+# W0 = 2506897.0945; W_empty = 1305967.8966; W_fuel_missao = 876679.2679
+# W_payload = 313920.0000; W_crew = 10329.9300; T0 = 749000.0000 N
+# Sref = 330.0000; Cref = 6.5465; Bref = 58.8643
+# Asa: AR = 10.5000; taper = 0.1700
+# Asa: cr = 9.5831; ct = 1.6291; tcr = 0.1600; tct = 0.0800
+# Asa: sweep = 35.0500; dihedral = 5.0000
+# Asa: incidencia_raiz = 0.0000; torcao_ponta_menos_raiz = -3.0000
+# Asa: incidencia_ponta = -3.0000; Ainc(eta) = incidencia_raiz + eta * torcao
+# EH: S = 70.3111; b = 16.7703; cr = 6.2112; ct = 2.1739
+# EH: incidencia = 0.0000; sweep = 40.0000; dihedral = 6.0000
+# EV: S = 61.0878; b = 9.5724; cr = 9.4543; ct = 3.3090
+# EV: sweep = 42.0000
+# Fuselagem: L = 58.0000; D = 5.8700
+# Naceles: quantidade = 2; L = 5.8000; D = 3.5000
+# Nacele direita: x = 19.2000; y = 10.5000; z_AVL = -3.6056
+# Ajustes verticais AVL: dz_w = -0.6711; dz_h = 1.7516; dz_v = 0.7516; folga = 0.1000
+# CGs limites: xcg_fwd = 26.2036; xcg_aft = 27.3457
+# Referencia deste arquivo: Xref = 27.3457; Yref = 0; Zref = 0
+# Perfil da asa: airfoil.dat; contorno da fuselagem: fuseB737_nondim.dat
+# Controles: d1=slat, d2=flap, d3=aileron, d4=elevator, d5=rudder
+# Charneiras x/c: slat = -0.080; flap = 0.670
+# Charneiras x/c: aileron = 0.700; elevator = 0.600; rudder = 0.700
+# DESIGN: g1=iw, g2=it; incrementos de incidencia sobre os valores de montagem acima.
+# Mach e CDp abaixo sao valores de entrada; CL_projeto acima e apenas informativo, nao impoe trimagem.
 
 #Mach
  0.850
@@ -11,10 +50,10 @@ Tomav - CG aft (xcg = 27.3413 m), cruzeiro com 50% do combustivel
 330.0000   6.5465   58.8643
 
 #Xref    Yref    Zref
-27.3413   0.0     0.0
+27.3457   0.0     0.0
 
 # CDp
-0.01433
+0.01421
 
 
 #--------------------------------------------------
@@ -41,7 +80,7 @@ TRANSLATE
 # eta = 0.000
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-16.9000  0.0000  -1.8500  9.5831  0.0
+16.9000  0.0000  -1.8500  9.5831  0.0000
 AFILE
 airfoil.dat
 DESIGN
@@ -50,7 +89,7 @@ iw 1.0
 # eta = 0.100
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-19.1572  2.9350  -1.5932  8.7899  0.0
+19.1572  2.9350  -1.5932  8.7899  -0.2992
 AFILE
 airfoil.dat
 CONTROL
@@ -63,7 +102,7 @@ iw 1.0
 # eta = 0.650
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-31.6130  19.1309  -0.1763  4.4130  0.0
+31.6130  19.1309  -0.1763  4.4130  -1.9500
 AFILE
 airfoil.dat
 CONTROL
@@ -76,7 +115,7 @@ iw 1.0
 # eta = 0.660
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-31.8394  19.4252  -0.1505  4.3335  0.0
+31.8394  19.4252  -0.1505  4.3335  -1.9800
 AFILE
 airfoil.dat
 CONTROL
@@ -89,7 +128,7 @@ iw 1.0
 # eta = 0.700
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-32.7448  20.6025  -0.0475  4.0153  0.0
+32.7448  20.6025  -0.0475  4.0153  -2.1000
 AFILE
 airfoil.dat
 CONTROL
@@ -102,7 +141,7 @@ iw 1.0
 # eta = 0.980
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-39.0827  28.8435  0.6735  1.7882  0.0
+39.0827  28.8435  0.6735  1.7882  -2.9400
 AFILE
 airfoil.dat
 CONTROL
@@ -113,7 +152,7 @@ iw 1.0
 # eta = 1.000
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-39.5354  29.4321  0.7250  1.6291  0.0
+39.5354  29.4321  0.7250  1.6291  -3.0000
 AFILE
 airfoil.dat
 DESIGN
@@ -139,7 +178,7 @@ TRANSLATE
 
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-48.7888  0.0  1.9350  6.2112  0.
+48.7888  0.0  1.9350  6.2112  0.0000
 CONTROL
 elevator  1.0  0.600    0. 0. 0.  1
 DESIGN
@@ -147,7 +186,7 @@ it 1.0
 
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-56.8341  8.3852  2.8163  2.1739  0.
+56.8341  8.3852  2.8163  2.1739  0.0000
 CONTROL
 elevator  1.0  0.600    0. 0. 0.  1
 DESIGN
