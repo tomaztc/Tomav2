@@ -14,7 +14,7 @@ from designTool.moment_of_inertia import moment_of_inertia
 
 # Hipoteses de montagem [graus]; torcao = incidencia da ponta menos a da raiz.
 # AVL 3.40 Linux: CG aft, Mach=0.85, CL=0.4483, Cm=0 via profundor;
-# alpha=-0.00001 grau. Reproducao em AVL_package/validation/README.md.
+# alpha=-0.00001 grau.
 WING_ROOT_INCIDENCE_DEG = 5.9311
 WING_TWIST_TIP_DEG = -7.0
 TAIL_INCIDENCE_DEG = 0.0
