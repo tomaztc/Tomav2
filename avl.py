@@ -13,8 +13,8 @@ from designTool.analyze import analyze
 from designTool.moment_of_inertia import moment_of_inertia
 
 # Hipoteses de montagem [graus]; torcao = incidencia da ponta menos a da raiz.
-WING_ROOT_INCIDENCE_DEG = 0.0
-WING_TWIST_TIP_DEG = -3.0
+WING_ROOT_INCIDENCE_DEG = 5.217
+WING_TWIST_TIP_DEG = -5.0
 TAIL_INCIDENCE_DEG = 0.0
 # Superfícies de controle da empenagem não definidas no designTool
 XHINGE_ELEV = 0.60 # Posição da charneira do profundor (x/c)

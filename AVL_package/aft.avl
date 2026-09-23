@@ -21,8 +21,8 @@ Tomav - CG aft (xcg = 27.3457 m), meio do percurso de cruzeiro
 # Asa: AR = 10.5000; taper = 0.1700
 # Asa: cr = 9.5831; ct = 1.6291; tcr = 0.1600; tct = 0.0800
 # Asa: sweep = 35.0500; dihedral = 5.0000
-# Asa: incidencia_raiz = 0.0000; torcao_ponta_menos_raiz = -3.0000
-# Asa: incidencia_ponta = -3.0000; Ainc(eta) = incidencia_raiz + eta * torcao
+# Asa: incidencia_raiz = 5.2170; torcao_ponta_menos_raiz = -5.0000
+# Asa: incidencia_ponta = 0.2170; Ainc(eta) = incidencia_raiz + eta * torcao
 # EH: S = 70.3111; b = 16.7703; cr = 6.2112; ct = 2.1739
 # EH: incidencia = 0.0000; sweep = 40.0000; dihedral = 6.0000
 # EV: S = 61.0878; b = 9.5724; cr = 9.4543; ct = 3.3090
@@ -80,7 +80,7 @@ TRANSLATE
 # eta = 0.000
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-16.9000  0.0000  -1.8500  9.5831  0.0000
+16.9000  0.0000  -1.8500  9.5831  5.2170
 AFILE
 airfoil.dat
 DESIGN
@@ -89,7 +89,7 @@ iw 1.0
 # eta = 0.100
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-19.1572  2.9350  -1.5932  8.7899  -0.2992
+19.1572  2.9350  -1.5932  8.7899  4.7184
 AFILE
 airfoil.dat
 CONTROL
@@ -102,7 +102,7 @@ iw 1.0
 # eta = 0.650
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-31.6130  19.1309  -0.1763  4.4130  -1.9500
+31.6130  19.1309  -0.1763  4.4130  1.9670
 AFILE
 airfoil.dat
 CONTROL
@@ -115,7 +115,7 @@ iw 1.0
 # eta = 0.660
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-31.8394  19.4252  -0.1505  4.3335  -1.9800
+31.8394  19.4252  -0.1505  4.3335  1.9170
 AFILE
 airfoil.dat
 CONTROL
@@ -128,7 +128,7 @@ iw 1.0
 # eta = 0.700
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-32.7448  20.6025  -0.0475  4.0153  -2.1000
+32.7448  20.6025  -0.0475  4.0153  1.7170
 AFILE
 airfoil.dat
 CONTROL
@@ -141,7 +141,7 @@ iw 1.0
 # eta = 0.980
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-39.0827  28.8435  0.6735  1.7882  -2.9400
+39.0827  28.8435  0.6735  1.7882  0.3170
 AFILE
 airfoil.dat
 CONTROL
@@ -152,7 +152,7 @@ iw 1.0
 # eta = 1.000
 SECTION
 #Xle    Yle    Zle     Chord   Ainc  Nspanwise  Sspace
-39.5354  29.4321  0.7250  1.6291  -3.0000
+39.5354  29.4321  0.7250  1.6291  0.2170
 AFILE
 airfoil.dat
 DESIGN
