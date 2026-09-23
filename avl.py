@@ -13,8 +13,10 @@ from designTool.analyze import analyze
 from designTool.moment_of_inertia import moment_of_inertia
 
 # Hipoteses de montagem [graus]; torcao = incidencia da ponta menos a da raiz.
-WING_ROOT_INCIDENCE_DEG = 5.217
-WING_TWIST_TIP_DEG = -5.0
+# AVL 3.40 Linux: CG aft, Mach=0.85, CL=0.4483, Cm=0 via profundor;
+# alpha=-0.00001 grau. Reproducao em AVL_package/validation/README.md.
+WING_ROOT_INCIDENCE_DEG = 5.9311
+WING_TWIST_TIP_DEG = -7.0
 TAIL_INCIDENCE_DEG = 0.0
 # Superfícies de controle da empenagem não definidas no designTool
 XHINGE_ELEV = 0.60 # Posição da charneira do profundor (x/c)
