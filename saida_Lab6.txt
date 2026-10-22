@@ -1,0 +1,130 @@
+========== AVL Início do Cruzeiro ==========
+W [N]: 2395830.3 | CL: 0.5316 | CDp: 0.01439
+dz_w [m]: -0.6711 | dz_h [m]: 1.7516 | dz_v [m]: 0.7516 | z_n [m]: -3.6056
+xcg_aft [m]: 27.3457 | xcg_fwd [m]: 26.2036
+
+========== DIAGRAMA Início do Cruzeiro ==========
+MTOW = 2506897.1 N = 255545.1 kgf
+W = 2395830.3 N = 244223.3 kgf
+S_w = 330.0 m²
+cm_w = 6.5 m
+altitude_cruise = 9875.5 m
+CLmax_design = 1.33
+CLmin = -0.80
+Mach_cruise = 0.850
+Mach_D = 0.920
+U_de = 10.3 m/s = 33.7 ft/s
+n_max = 2.5
+n_min = -1.0
+
+GRANDEZAS CALCULADAS
+ISA: a = 300.045 m/s; rho = 0.419906 kg/m³
+sigma = rho / rho_0 = 0.342780; TAS2EAS = sqrt(sigma) = 0.585475
+W_S = W / S_ref = 7260.092 N/m²
+
+VELOCIDADES
+Mach_D = Mach_C + 0.07 = 0.9200; V_D / V_C = 1.082353
+Adota-se M_D = 0.84 como dado específico do exercício; o critério V_D >= 1.25 V_C da p. 22 não é aplicado neste caso.
+Conversão: V_E = V_TAS * TAS2EAS; V_KEAS = V_E * EAS2KEAS
+V_S1 = sqrt(2 * W / (rho * S_ref * CLmax)) = 161.474 m/s TAS = 94.539 m/s EAS = 183.769 KEAS
+V_Sneg = sqrt(2 * abs(n_min) * W / (rho * S_ref * abs(CLmin))) = 207.905 m/s TAS = 121.723 m/s EAS = 236.611 KEAS
+V_A = V_S1 * sqrt(n_max) = 255.313 m/s TAS = 149.479 m/s EAS = 290.565 KEAS
+V_C = Mach_C * a = 255.038 m/s TAS = 149.318 m/s EAS = 290.251 KEAS
+V_D = Mach_D * a = 276.041 m/s TAS = 161.615 m/s EAS = 314.154 KEAS
+
+RAJADA (V_E EM m/s EAS)
+mu_g = 2 * W_S / (rho * c_ref * CL_alpha * gravity) = 85.466932
+K_g = 0.88 * mu_g / (5.3 + mu_g) = 0.828616
+U_de_D = U_de / 2 = 5.135880 m/s = 16.850 ft/s (hipótese do PDF)
+k_rajada = rho_0 * CL_alpha * K_g / (2 * W_S) = 0.000440410
+U(V_E) = U_de até V_C_EAS; depois U(V_E) = m_U * V_E + b_U até V_D_EAS
+m_U = (U_de_D - U_de) / (V_D_EAS - V_C_EAS) = -0.417660054
+b_U = U_de - m_U * V_C_EAS = 72.636017 m/s
+delta_n = k_rajada * V_E * U(V_E): em V_C = 0.675484; em V_D = 0.365556
+n_raj_pos = 1 + delta_n: em V_C = 1.675484; em V_D = 1.365556
+n_raj_neg = 1 - delta_n: em V_C = 0.324516; em V_D = 0.634444
+
+MANOBRA (V_E EM m/s EAS)
+k_estol_pos = rho_0 * S_ref * CLmax / (2 * W) = 0.000111887
+k_estol_neg = rho_0 * S_ref * CLmin / (2 * W) = -0.000067492
+n_estol_pos = k_estol_pos * V_E²: em V_S1 = 1.000000
+n_estol_neg = k_estol_neg * V_E²: em V_Sneg = -1.000000
+n_lim_neg = n_min = -1.000 até V_C_EAS; depois n_lim_neg = m_neg * V_E + b_neg até V_D_EAS
+m_neg = -n_min / (V_D_EAS - V_C_EAS) = 0.081322004 s/m
+b_neg = n_min - m_neg * V_C_EAS = -13.142857
+n_man_pos = min(n_estol_pos, n_max): máximo = 2.500000
+n_man_neg = max(n_estol_neg, n_lim_neg): em V_C = -1.000000; em V_D = 0.000000
+
+ENVELOPE COMBINADO E FECHAMENTOS
+n_comb_pos = max(n_man_pos, n_raj_pos): máximo = 2.500000
+n_comb_neg = min(n_man_neg, n_raj_neg): mínimo = -1.000000
+Vertical V_E = V_S1_EAS: de n = 0 até n_comb_pos(V_S1_EAS) = 1.000000
+Vertical V_E = V_Sneg_EAS: de n_comb_neg(V_Sneg_EAS) = -1.000000 até n = 0
+Vertical V_E = V_D_EAS: de n_comb_neg(V_D_EAS) = 0.000000 até n_comb_pos(V_D_EAS) = 2.500000
+Recortes gráficos nas velocidades de estol a +1 g e -1 g; entre eles, fechamento em n = 0. Tracejadas completas de zero a V_D_EAS.
+Diagrama salvo emLab6_Início.png
+========== AVL Fim do Cruzeiro ==========
+W [N]: 1703386.8 | CL: 0.3780 | CDp: 0.01414
+dz_w [m]: -0.6711 | dz_h [m]: 1.7516 | dz_v [m]: 0.7516 | z_n [m]: -3.6056
+xcg_aft [m]: 27.3457 | xcg_fwd [m]: 26.2036
+
+========== DIAGRAMA Fim do Cruzeiro ==========
+MTOW = 2506897.1 N = 255545.1 kgf
+W = 1703386.8 N = 173637.8 kgf
+S_w = 330.0 m²
+cm_w = 6.5 m
+altitude_cruise = 9875.5 m
+CLmax_design = 1.33
+CLmin = -0.80
+Mach_cruise = 0.850
+Mach_D = 0.920
+U_de = 10.3 m/s = 33.7 ft/s
+n_max = 2.5
+n_min = -1.0
+
+GRANDEZAS CALCULADAS
+ISA: a = 300.045 m/s; rho = 0.419906 kg/m³
+sigma = rho / rho_0 = 0.342780; TAS2EAS = sqrt(sigma) = 0.585475
+W_S = W / S_ref = 5161.778 N/m²
+
+VELOCIDADES
+Mach_D = Mach_C + 0.07 = 0.9200; V_D / V_C = 1.082353
+Adota-se M_D = 0.84 como dado específico do exercício; o critério V_D >= 1.25 V_C da p. 22 não é aplicado neste caso.
+Conversão: V_E = V_TAS * TAS2EAS; V_KEAS = V_E * EAS2KEAS
+V_S1 = sqrt(2 * W / (rho * S_ref * CLmax)) = 136.154 m/s TAS = 79.715 m/s EAS = 154.953 KEAS
+V_Sneg = sqrt(2 * abs(n_min) * W / (rho * S_ref * abs(CLmin))) = 175.305 m/s TAS = 102.636 m/s EAS = 199.509 KEAS
+V_A = V_S1 * sqrt(n_max) = 215.279 m/s TAS = 126.040 m/s EAS = 245.003 KEAS
+V_C = Mach_C * a = 255.038 m/s TAS = 149.318 m/s EAS = 290.251 KEAS
+V_D = Mach_D * a = 276.041 m/s TAS = 161.615 m/s EAS = 314.154 KEAS
+
+RAJADA (V_E EM m/s EAS)
+mu_g = 2 * W_S / (rho * c_ref * CL_alpha * gravity) = 60.765257
+K_g = 0.88 * mu_g / (5.3 + mu_g) = 0.809403
+U_de_D = U_de / 2 = 5.135880 m/s = 16.850 ft/s (hipótese do PDF)
+k_rajada = rho_0 * CL_alpha * K_g / (2 * W_S) = 0.000605079
+U(V_E) = U_de até V_C_EAS; depois U(V_E) = m_U * V_E + b_U até V_D_EAS
+m_U = (U_de_D - U_de) / (V_D_EAS - V_C_EAS) = -0.417660054
+b_U = U_de - m_U * V_C_EAS = 72.636017 m/s
+delta_n = k_rajada * V_E * U(V_E): em V_C = 0.928047; em V_D = 0.502237
+n_raj_pos = 1 + delta_n: em V_C = 1.928047; em V_D = 1.502237
+n_raj_neg = 1 - delta_n: em V_C = 0.071953; em V_D = 0.497763
+
+MANOBRA (V_E EM m/s EAS)
+k_estol_pos = rho_0 * S_ref * CLmax / (2 * W) = 0.000157370
+k_estol_neg = rho_0 * S_ref * CLmin / (2 * W) = -0.000094929
+n_estol_pos = k_estol_pos * V_E²: em V_S1 = 1.000000
+n_estol_neg = k_estol_neg * V_E²: em V_Sneg = -1.000000
+n_lim_neg = n_min = -1.000 até V_C_EAS; depois n_lim_neg = m_neg * V_E + b_neg até V_D_EAS
+m_neg = -n_min / (V_D_EAS - V_C_EAS) = 0.081322004 s/m
+b_neg = n_min - m_neg * V_C_EAS = -13.142857
+n_man_pos = min(n_estol_pos, n_max): máximo = 2.500000
+n_man_neg = max(n_estol_neg, n_lim_neg): em V_C = -1.000000; em V_D = 0.000000
+
+ENVELOPE COMBINADO E FECHAMENTOS
+n_comb_pos = max(n_man_pos, n_raj_pos): máximo = 2.500000
+n_comb_neg = min(n_man_neg, n_raj_neg): mínimo = -1.000000
+Vertical V_E = V_S1_EAS: de n = 0 até n_comb_pos(V_S1_EAS) = 1.000000
+Vertical V_E = V_Sneg_EAS: de n_comb_neg(V_Sneg_EAS) = -1.000000 até n = 0
+Vertical V_E = V_D_EAS: de n_comb_neg(V_D_EAS) = 0.000000 até n_comb_pos(V_D_EAS) = 2.500000
+Recortes gráficos nas velocidades de estol a +1 g e -1 g; entre eles, fechamento em n = 0. Tracejadas completas de zero a V_D_EAS.
+Diagrama salvo emLab6_Fim.png
