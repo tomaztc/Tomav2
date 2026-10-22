@@ -385,6 +385,7 @@ SECTION
     # Indique os valores de:
     # V_C e V_D são TAS; o gráfico usa velocidade equivalente.
     print(f"\n========== DIAGRAMA {nome_caso} ==========")
+
     print(f"MTOW = {W0:.1f} N = {W0/gravity:.1f} kgf")
     print(f"W = {W:.1f} N = {W/gravity:.1f} kgf")
     print(f"S_w = {S_w:.1f} m²")
@@ -419,7 +420,6 @@ SECTION
     V_S1 = np.sqrt(2 * W / (rho * S_w * CLmax_design))
     V_Sneg = np.sqrt(2 * abs(n_min) * W / (rho * S_w * abs(CLmin)))
     V_A = V_S1 * np.sqrt(n_max)
-
     V_C_EAS = V_C * TAS2EAS
     V_D_EAS = V_D * TAS2EAS
     V_S1_EAS = V_S1 * TAS2EAS
@@ -493,7 +493,7 @@ SECTION
     ]:
         print(f'{nome} = {formula} = {velocidade:.3f} m/s TAS = '
             f'{velocidade * TAS2EAS:.3f} m/s EAS = {velocidade * TAS2EAS * EAS2KEAS:.3f} KEAS')
-
+    print(f"CL_A = {W*2.5 / (0.5 * rho * V_A**2 * S_w)}")
     print('\nRAJADA (V_E EM m/s EAS)')
     print(f'mu_g = 2 * W_S / (rho * c_ref * CL_alpha * gravity) = {mu_g:.6f}')
     print(f'K_g = 0.88 * mu_g / (5.3 + mu_g) = {K_g:.6f}')
