@@ -497,6 +497,7 @@ SECTION
     print('\nRAJADA (V_E EM m/s EAS)')
     print(f'mu_g = 2 * W_S / (rho * c_ref * CL_alpha * gravity) = {mu_g:.6f}')
     print(f'K_g = 0.88 * mu_g / (5.3 + mu_g) = {K_g:.6f}')
+    print(f"U_de = {U_de:.6f} m/s EAS = {U_de / ft2m:.3f} ft/s EAS (rajada em V_C na altitude em estudo)")
     print(f'U_de_D = U_de / 2 = {U_de_D:.6f} m/s = {U_de_D / ft2m:.3f} ft/s (hipótese do PDF)')
     print(f'k_rajada = rho_0 * CL_alpha * K_g / (2 * W_S) = {k_rajada:.9f}')
     print('U(V_E) = U_de até V_C_EAS; depois U(V_E) = m_U * V_E + b_U até V_D_EAS')
