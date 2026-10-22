@@ -1,4 +1,21 @@
-# Diagrama V-g-n em cruzeiro: manobra, rajada e envelope combinado.
+"""Diagrama V-g-n em cruzeiro, conforme PRJ-23-CARGAS-Diagrama V-N.pdf.
+
+Referências (páginas do PDF, contando a capa):
+  9, 17, 26: limite negativo de -1 até V_C e reta até zero em V_D;
+  15: V_E = V_TAS * sqrt(rho / rho_0);
+  19, 21, 24, 26: velocidades e parábolas de estol, V_A = V_S1 * sqrt(n_max);
+  22: V_D >= 1.25 V_C no critério apresentado no PDF; neste exercício,
+      mantém-se o dado específico M_D = M_C + 0.07 = 0.84;
+  35, 37: rho local em mu_g e rho_0 na fórmula de rajada em EAS;
+  38: U_de decresce linearmente entre V_C e V_D; Delta_n é quadrático;
+  39: envelope combinado é a união dos envelopes de manobra e rajada.
+
+As figuras esquemáticas não substituem essas equações: a página 41 mantém
+-1 g até V_D, contrariando as páginas 9 e 17. As parábolas de estol são
+calculadas desde a origem. Por convenção gráfica, o contorno destacado é
+recortado em V_S1 (estol a +1 g) e V_Sneg (estol a -1 g), com as curvas
+completas mantidas como linhas tracejadas de construção.
+"""
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,7 +23,7 @@ import numpy as np
 from designTool.auxiliary import atmosphere
 from designTool.constants import gravity, ft2m
 
-EAS2KEAS = 1.94384
+EAS2KEAS = 3600 / 1852  # 1 nó = 1852 m / 3600 s
 rho_0 = 1.225  # kg/m³
 
 # Dados fornecidos. V_C e V_D são TAS; o gráfico usa velocidade equivalente.
@@ -18,7 +35,7 @@ CLmax = 1.50
 CLmin = -0.80
 CL_alpha = 6.10  # rad^-1
 Mach_C = 0.77
-Mach_D = Mach_C + 0.07  # Critério de Mach fornecido; não impor V_D = 1.25 V_C.
+Mach_D = Mach_C + 0.07  # Dado do exercício confirmado; exceção ao critério da p. 22.
 U_de = 33.7 * ft2m  # m/s, rajada em V_C na altitude em estudo
 U_de_D = U_de / 2  # Hipótese do PDF: metade da rajada de V_C em V_D.
 n_max = 2.5
@@ -61,7 +78,7 @@ b_neg = n_min - m_neg * V_C_EAS
 m_U = (U_de_D - U_de) / (V_D_EAS - V_C_EAS)
 b_U = U_de - m_U * V_C_EAS
 
-# Malha em m/s EAS, incluindo exatamente todos os pontos de transição.
+# Malha em m/s EAS, incluindo exatamente as velocidades de referência.
 V_E = np.unique(np.r_[
     np.linspace(0, V_D_EAS, 2001),
     V_S1_EAS, V_Sneg_EAS, V_A_EAS, V_C_EAS, V_D_EAS,
@@ -82,7 +99,8 @@ n_raj_neg = 1 - delta_n
 n_comb_pos = np.maximum(n_man_pos, n_raj_pos)
 n_comb_neg = np.minimum(n_man_neg, n_raj_neg)
 
-# Cortes da região em +1 g e -1 g. Não prolongar o contorno até V_E = 0.
+# Convenção gráfica: recortar os dois ramos nas velocidades de estol
+# a +1 g e -1 g, mantendo as curvas calculadas completas nas tracejadas.
 regiao_pos = V_E >= V_S1_EAS
 regiao_neg = V_E >= V_Sneg_EAS
 i_S1 = np.flatnonzero(V_E == V_S1_EAS)[0]
@@ -98,6 +116,8 @@ print(f'W_S = W / S_ref = {W_S:.3f} N/m²')
 
 print('\nVELOCIDADES')
 print(f'Mach_D = Mach_C + 0.07 = {Mach_D:.4f}; V_D / V_C = {V_D / V_C:.6f}')
+print('Adota-se M_D = 0.84 como dado específico do exercício; '
+      'o critério V_D >= 1.25 V_C da p. 22 não é aplicado neste caso.')
 print('Conversão: V_E = V_TAS * TAS2EAS; V_KEAS = V_E * EAS2KEAS')
 for nome, formula, velocidade in [
     ('V_S1', 'sqrt(2 * W / (rho * S_ref * CLmax))', V_S1),
@@ -139,7 +159,8 @@ print(f'Vertical V_E = V_S1_EAS: de n = 0 até n_comb_pos(V_S1_EAS) = {n_comb_po
 print(f'Vertical V_E = V_Sneg_EAS: de n_comb_neg(V_Sneg_EAS) = {n_comb_neg[i_Sneg]:.6f} até n = 0')
 print(f'Vertical V_E = V_D_EAS: de n_comb_neg(V_D_EAS) = {n_comb_neg[i_D]:.6f} '
       f'até n_comb_pos(V_D_EAS) = {n_comb_pos[i_D]:.6f}')
-print('Entre os cortes: n = 0, de V_S1_EAS até V_Sneg_EAS. Tracejadas completas de zero a V_D_EAS.')
+print('Recortes gráficos nas velocidades de estol a +1 g e -1 g; '
+      'entre eles, fechamento em n = 0. Tracejadas completas de zero a V_D_EAS.')
 
 # Um único gráfico, sem resultados numéricos nas anotações.
 plt.figure(figsize=(12, 7))
@@ -153,7 +174,7 @@ plt.plot(V_KEAS, n_man_neg, '--', color='tab:blue', linewidth=1.5)
 plt.plot(V_KEAS, n_raj_pos, '--', color='tab:red', linewidth=1.5, label='Rajada')
 plt.plot(V_KEAS, n_raj_neg, '--', color='tab:red', linewidth=1.5)
 
-# Contorno fechado nos dois estóis e na velocidade de mergulho.
+# Fechamentos nos dois recortes de estol e na velocidade de mergulho.
 plt.plot([V_S1_KEAS, V_S1_KEAS], [0, n_comb_pos[i_S1]], color='black', linewidth=2)
 plt.plot([V_Sneg_KEAS, V_Sneg_KEAS], [n_comb_neg[i_Sneg], 0], color='black', linewidth=2)
 plt.plot([V_S1_KEAS, V_Sneg_KEAS], [0, 0], color='black', linewidth=2)
