@@ -432,6 +432,13 @@ SECTION
     V_Sneg_KEAS = V_Sneg_EAS * EAS2KEAS
     V_A_KEAS = V_A_EAS * EAS2KEAS
 
+    # Taxa de arfagem em V_A com n = n_max (pull-up), adimensionalizada para o AVL.
+    # Usa V_A em TAS e cm_w, que é o Cref escrito no .avl.
+    q_pitch = gravity * (n_max - 1) / V_A  # rad/s
+    q_pitch_deg = np.degrees(q_pitch)  # °/s
+    q_hat = q_pitch * cm_w / (2 * V_A)  # qc/2V
+    Mach_A = V_A / a
+
     # Alívio de rajada: rho local em mu_g e rho_0 na equação em EAS do PDF.
     mu_g = 2 * W_S / (rho * cm_w * CL_alpha * gravity)
     K_g = 0.88 * mu_g / (5.3 + mu_g)
@@ -527,6 +534,15 @@ SECTION
         f'até n_comb_pos(V_D_EAS) = {n_comb_pos[i_D]:.6f}')
     print('Recortes gráficos nas velocidades de estol a +1 g e -1 g; '
         'entre eles, fechamento em n = 0. Tracejadas completas de zero a V_D_EAS.')
+
+    print('\nTAXA DE ARFAGEM (V_A em TAS, n = n_max)')
+    print(f'V_A_TAS = V_A_EAS / TAS2EAS = {V_A_EAS / TAS2EAS:.3f} m/s (verificação: V_A = {V_A:.3f} m/s)')
+    print(f'q_pitch = gravity * (n_max - 1) / V_A_TAS = {q_pitch:.6f} rad/s = {q_pitch_deg:.3f} °/s')
+    print(f'q_hat = q_pitch * c_ref / (2 * V_A_TAS) = {q_hat:.6f}  (c_ref = {cm_w:.4f} m; valor "qc/2V" do AVL)')
+    print(f'verificação: q_hat = gravity * (n_max - 1) * c_ref / (2 * V_A_TAS**2) = '
+        f'{gravity * (n_max - 1) * cm_w / (2 * V_A**2):.6f}')
+    print(f'Mach_A = V_A_TAS / a = {Mach_A:.3f}')
+    print(f'Comando no menu OPER do AVL: P P {q_hat:.6f}')
 
     # Um único gráfico, sem resultados numéricos nas anotações.
     plt.figure(figsize=(12, 7))
