@@ -31,6 +31,7 @@ V_Sneg = sqrt(2 * abs(n_min) * W / (rho * S_ref * abs(CLmin))) = 207.905 m/s TAS
 V_A = V_S1 * sqrt(n_max) = 255.313 m/s TAS = 149.479 m/s EAS = 290.565 KEAS
 V_C = Mach_C * a = 255.038 m/s TAS = 149.318 m/s EAS = 290.251 KEAS
 V_D = Mach_D * a = 276.041 m/s TAS = 161.615 m/s EAS = 314.154 KEAS
+CL_A = 1.326214931973534
 
 RAJADA (V_E EM m/s EAS)
 mu_g = 2 * W_S / (rho * c_ref * CL_alpha * gravity) = 85.466932
@@ -97,6 +98,7 @@ V_Sneg = sqrt(2 * abs(n_min) * W / (rho * S_ref * abs(CLmin))) = 175.305 m/s TAS
 V_A = V_S1 * sqrt(n_max) = 215.279 m/s TAS = 126.040 m/s EAS = 245.003 KEAS
 V_C = Mach_C * a = 255.038 m/s TAS = 149.318 m/s EAS = 290.251 KEAS
 V_D = Mach_D * a = 276.041 m/s TAS = 161.615 m/s EAS = 314.154 KEAS
+CL_A = 1.326214931973534
 
 RAJADA (V_E EM m/s EAS)
 mu_g = 2 * W_S / (rho * c_ref * CL_alpha * gravity) = 60.765257
