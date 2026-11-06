@@ -71,6 +71,7 @@ def xcg_aviao(airplane, W):
 
 for W, nome_caso in zip((W_cruise_start, W_cruise_end), ("Início do Cruzeiro", "Fim do Cruzeiro")):
     xcg = xcg_aviao(airplane, W)
+    print(f'{nome_caso}: W = {W:.1f} N = {W/gravity} kgf | xcg = {xcg:.4f} m')
     print(f"========== AVL {nome_caso} ==========")
     W_fuel_remaining = W - tm['W_empty'] - inputs['W_crew'] - inputs['W_payload']
     fuel_frac = W_fuel_remaining / tm['W_fuel']

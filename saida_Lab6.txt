@@ -1,3 +1,4 @@
+Início do Cruzeiro: W = 2395830.3 N = 244223.27188876705 kgf | xcg = 26.7759 m
 ========== AVL Início do Cruzeiro ==========
 W [N]: 2395830.3 | CL: 0.5316 | CDp: 0.01439
 dz_w [m]: -0.6711 | dz_h [m]: 1.7516 | dz_v [m]: 0.7516 | z_n [m]: -3.6056
@@ -64,7 +65,16 @@ Vertical V_E = V_S1_EAS: de n = 0 até n_comb_pos(V_S1_EAS) = 1.000000
 Vertical V_E = V_Sneg_EAS: de n_comb_neg(V_Sneg_EAS) = -1.000000 até n = 0
 Vertical V_E = V_D_EAS: de n_comb_neg(V_D_EAS) = 0.000000 até n_comb_pos(V_D_EAS) = 2.500000
 Recortes gráficos nas velocidades de estol a +1 g e -1 g; entre eles, fechamento em n = 0. Tracejadas completas de zero a V_D_EAS.
+
+TAXA DE ARFAGEM (V_A em TAS, n = n_max)
+V_A_TAS = V_A_EAS / TAS2EAS = 255.313 m/s (verificação: V_A = 255.313 m/s)
+q_pitch = gravity * (n_max - 1) / V_A_TAS = 0.057635 rad/s = 3.302 °/s
+q_hat = q_pitch * c_ref / (2 * V_A_TAS) = 0.000739  (c_ref = 6.5465 m; valor "qc/2V" do AVL)
+verificação: q_hat = gravity * (n_max - 1) * c_ref / (2 * V_A_TAS**2) = 0.000739
+Mach_A = V_A_TAS / a = 0.851
+Comando no menu OPER do AVL: P P 0.000739
 Diagrama salvo emLab6_Início.png
+Fim do Cruzeiro: W = 1703386.8 N = 173637.79682296366 kgf | xcg = 27.1558 m
 ========== AVL Fim do Cruzeiro ==========
 W [N]: 1703386.8 | CL: 0.3780 | CDp: 0.01414
 dz_w [m]: -0.6711 | dz_h [m]: 1.7516 | dz_v [m]: 0.7516 | z_n [m]: -3.6056
@@ -131,4 +141,12 @@ Vertical V_E = V_S1_EAS: de n = 0 até n_comb_pos(V_S1_EAS) = 1.000000
 Vertical V_E = V_Sneg_EAS: de n_comb_neg(V_Sneg_EAS) = -1.000000 até n = 0
 Vertical V_E = V_D_EAS: de n_comb_neg(V_D_EAS) = 0.000000 até n_comb_pos(V_D_EAS) = 2.500000
 Recortes gráficos nas velocidades de estol a +1 g e -1 g; entre eles, fechamento em n = 0. Tracejadas completas de zero a V_D_EAS.
+
+TAXA DE ARFAGEM (V_A em TAS, n = n_max)
+V_A_TAS = V_A_EAS / TAS2EAS = 215.279 m/s (verificação: V_A = 215.279 m/s)
+q_pitch = gravity * (n_max - 1) / V_A_TAS = 0.068353 rad/s = 3.916 °/s
+q_hat = q_pitch * c_ref / (2 * V_A_TAS) = 0.001039  (c_ref = 6.5465 m; valor "qc/2V" do AVL)
+verificação: q_hat = gravity * (n_max - 1) * c_ref / (2 * V_A_TAS**2) = 0.001039
+Mach_A = V_A_TAS / a = 0.717
+Comando no menu OPER do AVL: P P 0.001039
 Diagrama salvo emLab6_Fim.png
