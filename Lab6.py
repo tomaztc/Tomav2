@@ -46,8 +46,6 @@ S_w = inputs['S_w']
 cm_w = geo['cm_w']
 b_w = geo['b_w']
 
-xcg = airplane['balance']['CG_hist']['xcg_efpc']
-
 Mach_cruise = inputs['Mach_cruise']
 altitude_cruise = inputs['altitude_cruise']
 
@@ -59,7 +57,20 @@ for phase in ('start', 'taxi', 'takeoff', 'climb'):
     W_cruise_start *= mf[phase]
 W_cruise_end = W_cruise_start * mf['cruise']
 
+def xcg_aviao(airplane, W):
+    W_empty = airplane['thrust_matching']['W_empty']
+    xcg_empty = airplane['empty_weight']['xcg_empty']
+    W_payload = airplane['inputs']['W_payload']
+    xcg_payload = airplane['inputs']['xcg_payload']
+    W_crew = airplane['inputs']['W_crew']
+    xcg_crew = airplane['inputs']['xcg_crew']
+    xcg_fuel = airplane['balance']['xcg_fuel']
+    W_fuel = W - W_empty - W_payload - W_crew
+    xcg = (W_empty*xcg_empty + W_fuel*xcg_fuel + W_payload*xcg_payload + W_crew*xcg_crew)/W
+    return xcg
+
 for W, nome_caso in zip((W_cruise_start, W_cruise_end), ("Início do Cruzeiro", "Fim do Cruzeiro")):
+    xcg = xcg_aviao(airplane, W)
     print(f"========== AVL {nome_caso} ==========")
     W_fuel_remaining = W - tm['W_empty'] - inputs['W_crew'] - inputs['W_payload']
     fuel_frac = W_fuel_remaining / tm['W_fuel']
